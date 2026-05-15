@@ -77,15 +77,12 @@ public class CaballoAtila {
         int xActual = actual.getX();
         int yActual = actual.getY();
 
-        // Iteramos sobre las 4 puertas
         for (int i = 0; i < 4; i++) {
             int nuevoX = xActual + dx[i];
             int nuevoY = yActual + dy[i];
 
-            // 1. Filtro Espacial: ¿Me caigo del mapa?
             if (nuevoX >= 0 && nuevoX < this.campo.length && nuevoY >= 0 && nuevoY < this.campo[0].length) {
 
-                // 2. Filtro Lógico: ¿Es tierra pisable (true)?
                 if (this.campo[nuevoX][nuevoY]) {
                     movValidos.add(new Posicion(nuevoX, nuevoY));
                 }
