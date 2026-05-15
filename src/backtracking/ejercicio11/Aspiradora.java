@@ -38,5 +38,35 @@ public class Aspiradora {
 
     private void backtracking(int xActual, int yActual, int baseX, int baseY) {
 
+        if (!mejorCamino.isEmpty() && solParcial.size() >= mejorCamino.size()) {
+            return;
+        }
+
+        if (xActual == baseX && yActual == baseY) {
+            mejorCamino = new ArrayList<>(solParcial);
+            return;
+        }
+
+        for (int i = 0; i < 4; i++) {
+            int nuevoX = xActual + dx[i];
+            int nuevoY = yActual + dy[i];
+
+
+            if (nuevoX >= 0 && nuevoX < mapa.length && nuevoY >= 0 && nuevoY < mapa[0].length) {
+
+                if (mapa[nuevoX][nuevoY] == 0) {
+                    List<Integer> paso = new ArrayList<>();
+                    paso.add(nuevoX);
+                    paso.add(nuevoY);
+                    solParcial.add(paso);
+                    mapa[nuevoX][nuevoY] = -1;
+
+                    backtracking(nuevoX, nuevoY, baseX, baseY);
+
+                    mapa[nuevoX][nuevoY] = 0;
+                    solParcial.remove(solParcial.size() - 1);
+                }
+            }
+        }
     }
 }
