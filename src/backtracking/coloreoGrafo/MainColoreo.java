@@ -50,6 +50,7 @@ public class MainColoreo {
                 if((maxColorParcial<maxColores)){
                     solPArcial.put(verticeActual,i);
 
+                    //en vez de hacer esto podria preguntar con un if comparando maxColorParcial y i
                     maxColorParcial = Math.max(maxColorParcial, i);
 
                     backtracking(grafo,indice+1,maxColorParcial);
