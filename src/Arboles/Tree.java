@@ -272,4 +272,65 @@ public class Tree {
 
     }
 
+    public int sumarConRestriccion(int limiteInferior, int limiteSuperior) {
+        return sumarConRestriccion(limiteInferior, limiteSuperior, this.root);
+    }
+
+    private int sumarConRestriccion(int inf, int sup, TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+
+        int sumaTotal = 0;
+
+        if (node.getValue() >= inf && node.getValue() <= sup) {
+            sumaTotal += node.getValue();
+        }
+
+        if (node.getValue() > inf) {
+            sumaTotal += sumarConRestriccion(inf, sup, node.getLeft());
+        }
+
+        if (node.getValue() < sup) {
+            sumaTotal += sumarConRestriccion(inf, sup, node.getRight());
+        }
+
+        return sumaTotal;
+    }
+
+    /*1 - Dado un arbol binario y un valor k, escribir un algoritmo que determine si el arbol es equilibrado respecto
+     al valor k. Un arbol esta equilibrado respecto a un valor k,
+     cuando todos sus nodos internos (sin considerar las hojas) cumplen que la diferencia absoluta
+     entre su valor y el valor de sus hijos (izquierdo y derecho) es menor o igual a k.*/
+
+    public boolean equilibrado(int k) {
+        return equilibrado(this.root, k);
+    }
+
+    private boolean equilibrado(TreeNode actual, int k) {
+        if (actual == null) {
+            return true;
+        }
+
+        if (actual.getLeft() == null && actual.getRight() == null) {
+            return true;
+        }
+
+        if (actual.getLeft() != null) {
+            int difIzquierda = Math.abs(actual.getValue() - actual.getLeft().getValue());
+            if (difIzquierda > k) {
+                return false;
+            }
+        }
+
+        if (actual.getRight() != null) {
+            int difDerecha = Math.abs(actual.getValue() - actual.getRight().getValue());
+            if (difDerecha > k) {
+                return false;
+            }
+        }
+
+        return equilibrado(actual.getLeft(), k) && equilibrado(actual.getRight(), k);
+    }
+
 }

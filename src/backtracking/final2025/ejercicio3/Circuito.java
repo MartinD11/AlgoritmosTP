@@ -30,7 +30,7 @@ public class Circuito {
         }
 
         visitados.add(origen);
-        solucion.add(origen);
+        solParcial.add(origen);
 
         backtracking(grafo,origen,origen,0);
 
