@@ -5,26 +5,37 @@ public class MainArbol {
     public static void main(String[] args) {
         Tree arbol = new Tree();
 
-        // 1. Armamos el árbol insertando los valores
-        // El primer valor ingresado (50) será la raíz
-        arbol.add(50);
+        // Armamos un árbol simétrico perfecto
+        //        50
+        //      /    \
+        //    30      70
+        //   /  \    /  \
+        // 20   40  60   80
 
+        arbol.add(50);
         arbol.add(30);
         arbol.add(70);
-
         arbol.add(20);
         arbol.add(40);
         arbol.add(60);
         arbol.add(80);
 
-        System.out.println("--- PRUEBAS DEL MÉTODO sumarConRestriccion ---");
+        System.out.println("--- PRUEBA DE RECORRIDOS ---");
 
-        // PRUEBA 1: Rango en el medio del árbol
-        // Nodos que entran: 40, 50, 60. Suma esperada: 150.
-        int inf1 = 35;
-        int sup1 = 65;
-        int resultado1 = arbol.sumarConRestriccion(inf1, sup1);
-        System.out.println("Suma en rango [" + inf1 + ", " + sup1 + "] -> Esperado: 150 | Obtenido: " + resultado1);
+        // 1. Pre-Orden: Ideal para copiar el árbol.
+        // Primero se imprime la raíz (50), luego toda la rama izquierda, luego la derecha.
+        arbol.imprimirPreOrden();
+        // Salida esperada: 50 30 20 40 70 60 80
+
+        // 2. In-Orden: El rey de la búsqueda.
+        // Como es un Árbol Binario de Búsqueda, SIEMPRE imprime de menor a mayor.
+        //arbol.imprimirInOrden();
+        // Salida esperada: 20 30 40 50 60 70 80
+
+        // 3. Post-Orden: Ideal para borrar o sumar.
+        // La raíz (50) es la ÚLTIMA en imprimirse porque espera a que terminen sus hijos.
+        //arbol.imprimirPostOrden();
+        // Salida esperada: 20 40 30 60 80 70 50
+    }
 
     }
-}

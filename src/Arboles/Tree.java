@@ -333,4 +333,99 @@ public class Tree {
         return equilibrado(actual.getLeft(), k) && equilibrado(actual.getRight(), k);
     }
 
+    // --- 1. PRE-ORDEN (Padre -> Izquierda -> Derecha) ---
+    public void imprimirPreOrden() {
+        System.out.print("Pre-Orden: ");
+        imprimirPreOrden(this.root);
+        System.out.println(); // Salto de línea al final
+    }
+
+    private void imprimirPreOrden(TreeNode node) {
+        if (node == null) return;
+
+        System.out.print(node.getValue() + " "); // TRABAJO (Yo primero)
+        imprimirPreOrden(node.getLeft());        // DELEGO (Izquierda)
+        imprimirPreOrden(node.getRight());       // DELEGO (Derecha)
+    }
+
+    // --- 2. IN-ORDEN (Izquierda -> Padre -> Derecha) ---
+    public void imprimirInOrden() {
+        System.out.print("In-Orden:  ");
+        imprimirInOrden(this.root);
+        System.out.println();
+    }
+
+    private void imprimirInOrden(TreeNode node) {
+        if (node == null) return;
+
+        imprimirInOrden(node.getLeft());         // DELEGO (Izquierda)
+        System.out.print(node.getValue() + " "); // TRABAJO (En el medio)
+        imprimirInOrden(node.getRight());        // DELEGO (Derecha)
+    }
+
+    // --- 3. POST-ORDEN (Izquierda -> Derecha -> Padre) ---
+    public void imprimirPostOrden() {
+        System.out.print("Post-Orden: ");
+        imprimirPostOrden(this.root);
+        System.out.println();
+    }
+
+    private void imprimirPostOrden(TreeNode node) {
+        if (node == null) return;
+
+        imprimirPostOrden(node.getLeft());       // DELEGO (Izquierda)
+        imprimirPostOrden(node.getRight());      // DELEGO (Derecha)
+        System.out.print(node.getValue() + " "); // TRABAJO (Yo al final)
+    }
+
+    /*1. El Sumador Restringido (Nodos Solitarios)
+        Enunciado: Escribir un método int sumarSolitarios() que recorra un árbol binario y
+        devuelva la suma de los valores de todos los nodos
+        que tengan exactamente un hijo (es decir, tienen hijo izquierdo pero el derecho es null, o viceversa).
+         Si un nodo tiene dos hijos o no tiene ninguno (es hoja), no se suma.*/
+    public int sumaHojaSola(TreeNode node) {
+        if (node == null) return 0;
+
+        int sumaTotal = 0;
+
+        boolean soloTieneIzq = (node.getLeft() != null && node.getRight() == null);
+        boolean soloTieneDer = (node.getLeft() == null && node.getRight() != null);
+
+        if(soloTieneIzq || soloTieneDer){
+            sumaTotal += node.getValue();
+        }
+
+        sumaTotal += sumaHojaSola(node.getLeft());
+        sumaTotal += sumaHojaSola(node.getRight());
+
+        return sumaTotal;
+    }
+
+    /*
+    * 2. El Recolector Eficiente (ABB)
+    Enunciado: Dado un Árbol Binario de Búsqueda (ABB) y un valor X, escribir un método List<Integer> obtenerParesMayores(int x)
+     que devuelva una lista con todos los números PARES que sean estrictamente mayores a X.
+    Requisito de examen: La lista resultante debe quedar ordenada de menor a mayor automáticamente y
+    * el algoritmo debe ser eficiente (si un subárbol entero tiene números menores a X, no deberías ni visitarlo).
+    * */
+
+    public ArrayList<Integer> listaOrdenNodes(TreeNode node, int x,ArrayList<Integer> lista){
+        if(node == null) return lista;
+
+
+        if(node.getLeft().getValue()> x){
+            listaOrdenNodes(node.getLeft(),x,lista);
+        }
+
+        if(node.getValue() > x && node.getValue() % 2 == 0){
+            lista.add(node.getValue());
+        }
+
+        listaOrdenNodes(node.getRight(),x,lista);
+
+
+        return lista;
+    }
+
+
 }
