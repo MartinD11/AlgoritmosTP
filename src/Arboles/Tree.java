@@ -427,5 +427,30 @@ public class Tree {
         return lista;
     }
 
+    /*Problema 1: Escribí un método recursivo que reciba la raíz de un árbol (o subárbol) y devuelva la cantidad total de nodos que tiene el árbol.*/
+    public int contadorNodos(TreeNode node){
+        int contador = contar(node);
+
+        return contador;
+    }
+
+    private int contar(TreeNode node){
+        if(node == null){
+            return 0;
+        }
+
+        int contador = 0;
+
+        if(node.getLeft() != null){
+            contador = contar(node.getLeft());
+        }
+
+        if(node.getRight() != null){
+            contador = contar(node.getRight());
+        }
+
+        return contador;
+
+    }
 
 }

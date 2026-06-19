@@ -47,19 +47,16 @@ public class MainColoreo {
         //recorro las posibles soluciones y podo de ser posible
         for(int i= 1; i<vertices.size(); i++){
             if(esPosibleColorear(grafo,verticeActual,i)){
-                if((maxColorParcial<maxColores)){
+                int nuevoMax = Math.max(maxColorParcial, i);
+                if((nuevoMax<maxColores)){
                     solPArcial.put(verticeActual,i);
 
-                    //en vez de hacer esto podria preguntar con un if comparando maxColorParcial y i
-                    maxColorParcial = Math.max(maxColorParcial, i);
-
-                    backtracking(grafo,indice+1,maxColorParcial);
+                    backtracking(grafo,indice+1,nuevoMax);
 
                     solPArcial.remove(verticeActual);
                 }
             }
         }
-
     }
 
     private boolean esPosibleColorear(GrafoNoDirigido grafo, Integer verticeActual, int indice){

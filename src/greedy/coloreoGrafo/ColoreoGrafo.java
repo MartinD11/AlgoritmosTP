@@ -1,4 +1,4 @@
-package greedy;
+package greedy.coloreoGrafo;
 
 import grafos.Grafo;
 
